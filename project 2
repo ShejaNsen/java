@@ -1,0 +1,118 @@
+package devoir1Strings;
+import java.util.Scanner;
+
+public class projet2 {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Entrez votre nombre en lettre romain. Je vais le convertir en chiffre.");
+        String str1 = sc.nextLine();
+        String str2 = str1.toUpperCase();//Met le string en uppercase pour que c'est compris mieux en tant que code
+        int len = str1.length();
+        int resultat = 0;
+
+        for (int i = 0; i < len; i++) { //Garantie que chaque lettre somain est éxaminé
+            char ch = str2.charAt(i);//crée ch pour l'utiliser lors des conditions
+
+            if (i < len - 1) {//tout au long que le loop nest pas terminé a scanner chaque lettre
+                char prochaine = str2.charAt(i + 1);
+                /*/ prochaine char vas me permettre de savoir la valeur des nombre tels que 400, et 900
+                    pour comparer les lettres Romains, qui vas en retour me donner la valuer du lettre en chiffre romain. /*/
+
+                if (ch == 'M') {
+                    resultat += 1000;
+                } else if (ch == 'C') { /*/Si le charactere est C est la suffixe est M la resultat est 900 mais si cest CD la resultat est 400/*/  	                 
+                    if (prochaine == 'M') {
+                        resultat += 900;
+                        i++;
+                    } else if (prochaine == 'D') {
+                        resultat += 400;
+                        i++;
+                    } else {
+                        resultat += 100;
+                    }
+                } else if (ch == 'D') {//Si c'est seulment D on ajoute 500
+                    resultat += 500;
+                } else if (ch == 'X') {//Si le charactere est X, la prochaine est C la resultat devient 90, mais si la suffixe est L c'est 40
+                    if (prochaine == 'C') {
+                        resultat += 90;
+                        i++;
+                    } else if (prochaine == 'L') {
+                        resultat += 40;
+                        i++;
+                    } else {//Sinon si c'est X  seulement la resultat est 10
+                        resultat += 10;
+                    }
+                } 
+                
+                else if (ch == 'L') {//Si c'est L la resultat est 50
+                    resultat += 50;
+                } 
+                
+                else if (ch == 'I') {//Cela garantit qui si on voit iv dans le chiffre romain sa vas etre 4 et si on voit ix sa vas etre 9
+                    if (prochaine == 'X') {
+                        resultat += 9;
+                        i++;
+                    } 
+                    
+                    else if (prochaine == 'V') {
+                        resultat += 4;
+                        i++;
+                    } 
+                    
+                    else {
+                        resultat+= 1;
+                    }
+                } 
+                
+                else {
+                    resultat += 5;
+                }
+            } 
+            
+            else
+            
+            { //Les valeurs générales des lettres
+                if (ch == 'M') {
+                    resultat += 1000;
+                } 
+                
+                else if (ch == 'D') { // else if pour combiner plusieurs  condition
+                    resultat += 500;
+                } 
+                
+                else if (ch == 'C') {
+                    resultat += 100;
+                } 
+                
+                else if (ch == 'L') {
+                	 
+                    resultat += 50;
+                } 
+                
+                else if (ch == 'X') {
+                    resultat += 10;
+                } 
+                
+                else if (ch == 'V') {
+                    resultat += 5;
+                } 
+                
+                else if (ch == 'I') {
+                    resultat += 1;
+                }
+            }
+        }
+        if(resultat>3999) {
+        	System.out.println("Valeur entrée nest pas un nombre romain");
+        	
+        
+        }
+        else {
+        	  System.out.println(str2 + " en numéro est " + resultat);	
+        }
+
+      
+    }
+}
