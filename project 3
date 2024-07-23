@@ -1,0 +1,151 @@
+import java.util.Objects;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class projet3 {
+
+	public static void main(String[] args) {
+		 Scanner sc = new Scanner(System.in);
+		 int choix = 0;
+		 boolean execute = true; //Boolean pour le condition while
+		 String [][]table1 = new String[10][4];
+		 
+		 while(execute) {
+			 //Affiche le menu.
+			 System.out.println("Voici le menu :");
+			 
+		 System.out.println("1 pour ajouter un client");
+		 System.out.println("2 pour supprimer un code avec le code");
+		 System.out.println("3 pour afficher la liste totale des clients");
+		 System.out.println("4 pour quitter le programme");
+		 choix = sc.nextInt();
+		 
+		 
+		 
+			 if(choix == 1) {
+				 Ajouter(table1,sc);
+				
+			 
+			 
+			
+				 
+			 }else if(choix ==2) {//Supprimer une compte par vérifier si ils savent le code de client
+				 System.out.println("Entrez le code du client que vous aimerais supprimer");
+				 String cs = sc.next();
+				 
+				 Supprime(table1,cs);
+				 
+			 
+			 }else if(choix==3) {//Affiché la liste
+				 Affiche(table1);
+			 
+			 
+				 }
+			 else if(choix == 4) {//Terminé le code
+				 System.out.println("Programme terminé.");
+				 
+				 execute = false;//Execute false veut dire que le while condition ne fonctionnent plus
+			 }
+		 }
+		 
+	}
+			
+			 
+		 
+	 public static void Ajouter(String[][]a,Scanner sc) {//Une methode afin de faciliter le processus d'ajouter des clients
+		 for(int i = 1;i<a.length;i++)//Parcourir les elements du liste
+			 
+			 if(a[i][0] == null) {//si la premiere section de rangée i n'a rien a l'intérieur
+				
+				 System.out.println("Entrez votre nom ");//Entrer nom
+				 String nom = sc.next();//NextLine parceque c'est un string 
+				 
+				 	for(int m = 0; m<nom.length();m++) {//Parcour le nom entré
+					
+				 		if(Character.isDigit(nom.charAt(m))) {//si on trouve une valeur qui est est une nombre ce n'est pas valide alors sa fait une erreur et renvoit l'utilisateur au menu
+						 System.out.println("Erreur.");
+						 return;
+					 }
+					
+			 }
+				
+				
+				 sc.nextLine();			 //ajouter de l'espace entre le nom et le prénom
+				 System.out.println("Entrez votre prénom");//Si le prénom
+				 String pré = sc.nextLine();
+				 
+				 	for(int r = 0;r<pré.length();r++) {
+				 		if(Character.isDigit(pré.charAt(r))) {
+						 System.out.println("Erreur.");
+						 return;
+					 }
+
+
+				
+				 }
+				 System.out.println("Entrez date de naissance (jj/mm/aaaa)");
+				 String naiss = sc.nextLine();
+				 for(int h = 0;h<naiss.length();h++) {
+					 if(Character.isLetter(naiss.charAt(h))) {//Meme chose mais si c'est une lettre
+						 System.out.println("Erreur.");
+						 return;
+					 }
+					
+				 }
+				 System.out.println("Entrez votre code");//afficher le code
+				 String code = sc.nextLine();
+				 for(int b = 0;b<code.length();b++) {
+				 		
+				 		if(Character.isLetter(code.charAt(b))) {
+						 System.out.println("Erreur.");
+						 return;
+					 }
+				 }
+				 
+				 
+				 
+			 a[i][0] = pré;//Attribut les valeurs dans la liste. i représente le nombre de clients.
+			 a[i][1] = nom;
+			 a[i][2] = naiss;
+			 a[i][3] = code;
+			
+			 System.out.println("Client ajouté");
+			 return;//retour afin de l'ajouter au main
+	 }
+	}
+	 public static void Supprime(String[][] a, String cs) {
+	        
+	        for (int i = 0; i < a.length; i++) {
+	            if (a[i][3] != null && Objects.equals(a[i][3], cs)) {//Si l'objet qui se retrouve dans le case 3 de rangée i
+	                Arrays.fill(a[i],null);//Commande qui vient avec l'outil arrays, sa me permet de remplir la valeur de la rangée avec null
+	                    
+	                
+	                System.out.println("Client supprimé avec succès.");
+	                return;//Retour aux choix originelles
+	            }
+	        }
+	        System.out.println("Client introuvable.");//Sinon le client n'est pas trouvable
+	        
+	    }
+
+		public static void Affiche(String[][] a) {//Affiche les clients
+		    System.out.println("Liste des clients : ");
+		    
+		    for (int i = 0; i < a.length; i++) {//Parcours les différents clients, chaque fois que i ajoute 1 c'est un nouveau client.
+		        if (a[i][0] != null && a[i][1] != null && a[i][2] != null && a[i][3] != null) {//Si les cases ne sont pas null, i représente les collonnes et le nombre de clients
+		            System.out.print(i + ". Code du client : ");//Nombre de client et le code
+		            System.out.println(a[i][3]);
+		            System.out.print("Nom : ");
+		            System.out.println(a[i][1]);
+		            System.out.print("Prénom : ");
+		            System.out.println(a[i][0]);
+		            System.out.print("Date de Naissance: ");
+		            System.out.println(a[i][2]);
+		            System.out.println();//Pour faire une espace entre les différents clients
+		        }
+		    }
+		}
+
+
+
+}
